@@ -15,9 +15,9 @@ object TaxiMain {
       .map(_.toLowerCase)
       .map(TaxiOrderConverter.convertFromLine)
 
-    println(taxiOrderRdd.map(_.km).sum())
+    println(taxiOrderRdd.filter(_.city == "boston").map(_.km).sum())
 
-    val id2KmRdd = taxiOrderRdd.map(order => Tuple2(order.id, order.km)).reduceByKey(_ + _)
+    val id2KmRdd = taxiOrderRdd.map(order => (order.id, order.km)).reduceByKey(_ + _)
 
     val driverRdd = sc.textFile("data/drivers.txt").map(line => {
       val data = line.split(", ")

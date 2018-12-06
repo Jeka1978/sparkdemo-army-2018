@@ -5,6 +5,6 @@ import org.apache.spark.rdd.RDD
 /**
   * @author Evgeny Borisov
   */
-trait TopWordsService {
+trait TopWordsService extends Serializable{
     def topX(lines:RDD[String],x:Int):List[String]
 }
